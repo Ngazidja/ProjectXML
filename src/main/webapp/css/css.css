@@ -1,0 +1,122 @@
+@CHARSET "ISO-8859-1";
+@import "icomoon/style.css";
+@font-face {
+    font-family: 'fontPerso';
+    src: url('fontPerso/Roboto-Light.ttf') format("truetype");
+}
+*{
+	padding: 0px;
+	border:0px;
+	margin:0px;
+	
+	font-family:"Segoe UI Light",sans-serif;
+	/*font-family:helvetica;*/
+	
+	
+	border-collapse: collapse;
+	box-sizing:border-box;
+}
+
+body{
+	background-color:whitesmoke;
+}
+
+input,button{
+	padding: 5px;
+}
+header span, footer span{
+	display:block;
+}
+header{
+	background-color:#fff;
+	
+	position:relative;
+	top:0px;
+	left:0px;
+	right:0px;
+	padding:30px;
+	
+	text-align:center;
+}
+header span{
+	color:#555;
+	font-size:20px;
+}
+div.menu{
+	background-color: #555;
+	position:relative;
+	bottom:0px;
+	
+}
+div.menu ul{
+	display:inline-block;
+	list-style: none;
+}
+div.menu ul li:hover{
+	background-color:tomato;
+	color:#fff;
+}
+div.menu ul li{
+	color:#fff;
+	float: left;
+	padding: 10px;
+	cursor:pointer;
+	height:50px;
+	line-height:25px;
+}
+
+footer{
+	border-top:2px solid #222;
+	background-color:#333;
+	
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	padding:20px;
+}
+footer span{
+	color:#888;
+	font-size:12px;
+	text-align:right;
+	font-style: oblique;
+}
+/*
+table#emplacementPageDynamique{
+	background-color:#fff;
+	width:100%;
+	position:absolute;
+	top:135px;
+	bottom:58px;
+	left:0px;
+	right:0px;
+	border:1px solid #222;
+}*/
+div#titleDeLaPage{
+	display:block;
+	background-color:#fff;
+	bacground-image:-webkit-linear-gradient(top,#fff,whitesmoke);
+	color:#555;
+	font-size:22px;
+    text-transform:capitalize;
+	
+	position: absolute;
+	top: 138px;
+	left: 100px;
+	right: 100px;
+	padding: 8px 15px;
+	transition:0.2s;
+}
+.moveTitle{
+	text-indent:20px;	
+}
+div#EmplacementDeLaPage{
+	background-color:#fff;
+	padding:20px;
+	position: absolute;
+	top: 185px;
+	left: 100px;
+	right: 100px;
+	bottom: 60px;
+	border:1px solid #eee;
+}
