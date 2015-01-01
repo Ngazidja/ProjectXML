@@ -22,12 +22,55 @@
 							<li class=" icon-file-pdf" title="PDF" onclick="viewPage('PDF')"></li>
 							<li class="icon-stats" title="Statistiques" onclick="viewPage('statistiques')"></li>
 							<li>
-								<input type="search" placeholder="Recherche..." />
+								<form method="post" action="Index">
+									<input type="search" name="search" placeholder="Recherche..." />
+									<input type="submit" value="ok" />
+								</form>
 							</li>
 						</ul>
 					</div>
 				</center>
 				<xsl:for-each select="div">
+					<div>
+						<p>
+							<xsl:value-of select="." />
+						</p>
+					</div>
+				</xsl:for-each>
+			</body>
+		</html>
+	</xsl:template>
+	
+	<xsl:template match="search">
+		<html>
+			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1 " />
+				<title>Réponse recherche</title>
+				<link rel="stylesheet " type="text/css" href="css/css.css" />
+			</head>
+			<body>
+				<center>
+					<header>
+						<span>Programme des éditions des Journées Européennes du
+							Patrimoine (JEP)</span>
+					</header>
+					<div class="menu">
+						<ul>
+							<li class="icon-home" title="Accueil" onclick="viewPage('accueil')"></li>
+							<li class="icon-images" title="Graphiques" onclick="viewPage('graphiques')"></li>
+							<li class="icon-location" title="Map" onclick="viewPage('map')"></li>
+							<li class=" icon-file-pdf" title="PDF" onclick="viewPage('PDF')"></li>
+							<li class="icon-stats" title="Statistiques" onclick="viewPage('statistiques')"></li>
+							<li>
+								<form method="post" action="Index">
+									<input type="search" name="search" placeholder="Recherche..." />
+									<input type="submit" value="ok" />
+								</form>
+							</li>
+						</ul>
+					</div>
+				</center>
+				<xsl:for-each select="p">
 					<div>
 						<p>
 							<xsl:value-of select="." />
@@ -73,7 +116,10 @@
 							<li class=" icon-file-pdf" title="PDF" onclick="viewPage('PDF')"></li>
 							<li class="icon-stats" title="Statistiques" onclick="viewPage('statistiques')"></li>
 							<li>
-								<input type="search" placeholder="Recherche..." />
+								<form method="post" action="Index">
+									<input type="search" name="search" placeholder="Recherche..." />
+									<input type="submit" value="ok" />
+								</form>
 							</li>
 						</ul>
 					</div>
@@ -116,7 +162,10 @@
 							<li class=" icon-file-pdf" title="PDF" onclick="viewPage('PDF')"></li>
 							<li class="icon-stats" title="Statistiques" onclick="viewPage('statistiques')"></li>
 							<li>
-								<input type="search" placeholder="Recherche..." />
+								<form method="post" action="Index">
+									<input type="search" name="search" placeholder="Recherche..." />
+									<input type="submit" value="ok" />
+								</form>
 							</li>
 						</ul>
 					</div>

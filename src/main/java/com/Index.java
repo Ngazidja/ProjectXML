@@ -39,6 +39,8 @@ public class Index extends HttpServlet {
 	private Context contexte;
 	private String xml;
 	private String relativeWebPathXq;
+	public static final String recherche = "search";
+
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -57,12 +59,12 @@ public class Index extends HttpServlet {
 		ServletContext servletContext = request.getSession().getServletContext();
 		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/PatronPatrimoineDescription.xq";
 		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
-		
+
 		String type = request.getParameter("type");
 
 		// Nouveau contexte Basex
 		contexte = new Context();
-		
+
 		xml = "<index>\n";	
 		xml += processQuery("libellesDistinct()")+ "\n";
 		xml += "\n</index>";
@@ -79,6 +81,7 @@ public class Index extends HttpServlet {
 				e.printStackTrace();
 			}
 			System.out.println(html);
+
 			PrintWriter out = response.getWriter();
 			out.print(html);
 
@@ -93,6 +96,39 @@ public class Index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String search = request.getParameter( recherche );
+		System.out.println(search);
+
+		System.out.println("Index.doPost()");
+		ServletContext servletContext = request.getSession().getServletContext();
+		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/barreRecherche.xq";
+		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
+
+		String type = request.getParameter("type");
+
+		// Nouveau contexte Basex
+		contexte = new Context();
+
+		xml = "<search>\n";	
+		xml += processQuery("search('"+search+"')")+ "\n";
+		xml += "\n</search>";
+		System.out.println(xml);
+		// Demandes d'affichage en html
+		if(type == null || !type.equals("pdf")) {
+			String relativeWebPathXslt = "/home/zalbiya/git/ProjectXML/src/main/resources/xslt/formTest.xsl";
+
+			// On transforme le XML r�cuper� par la requ�te Xquery vers du Html avec Xsl
+			String html = null;
+			try {
+				html = creerHtml(xml, relativeWebPathXslt);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(html);
+
+			PrintWriter out = response.getWriter();
+			out.print(html);
+		}
 	}
 
 	private String creerHtml(String xml, String xsl) throws Exception {
@@ -120,7 +156,7 @@ public class Index extends HttpServlet {
 
 		return htmlStreamResult.toString();
 	}
-	
+
 	private String processQuery(String queryName) {
 		String requete = "import module namespace proj = 'xml' at '"+relativeWebPathXq+"'; proj:" + queryName ;
 		String resultat = null;

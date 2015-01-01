@@ -63,7 +63,7 @@ public class Adresse extends HttpServlet {
 		contexte = new Context();
 
 		xml = "<adresse>\n";
-		xml += processQuery("adresse") + "\n";	
+		xml += processQuery("adresse()") + "\n";	
 		xml += "\n</adresse>";
 		
 		// Demandes d'affichage en html
