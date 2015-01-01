@@ -122,7 +122,7 @@ public class Adresse extends HttpServlet {
 	}
 	
 	private String processQuery(String queryName) {
-		String requete = "import module namespace proj = 'xml' at '"+relativeWebPathXq+"'; proj:" + queryName + "()";
+		String requete = "import module namespace proj = 'xml' at '"+relativeWebPathXq+"'; proj:" + queryName ;
 		String resultat = null;
 		QueryProcessor proc = new QueryProcessor(requete, contexte);
 		try {
