@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.nio.file.Path;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,15 +24,16 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.basex.core.Context;
+import org.basex.io.out.PrintOutput;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- * Servlet implementation class Hello
+ * Servlet implementation class Index
  */
-public class Hello extends HttpServlet {
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String absoluteDiskPathXq;
 	private Context contexte;
@@ -41,7 +43,7 @@ public class Hello extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Hello() {
+	public Index() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,25 +53,23 @@ public class Hello extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Adresse.doGet()");
+		System.out.println("Index.doGet()");
 		ServletContext servletContext = request.getSession().getServletContext();
 		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/PatronPatrimoineDescription.xq";
 		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
-
+		
 		String type = request.getParameter("type");
 
 		// Nouveau contexte Basex
 		contexte = new Context();
-
-		xml = "<form>\n";
-		//xml += processQuery("lieuNom_Site()") + "\n";
-		xml += processQuery("form('', '', '', 'paris', '')") + "\n";	
-		xml += "\n</form>";
+		
+		xml = "<index>\n";	
+		xml += processQuery("libellesDistinct()")+ "\n";
+		xml += "\n</index>";
 		System.out.println(xml);
 		// Demandes d'affichage en html
 		if(type == null || !type.equals("pdf")) {
 			String relativeWebPathXslt = "/home/zalbiya/git/ProjectXML/src/main/resources/xslt/formTest.xsl";
-			String absoluteDiskPathXslt = servletContext.getRealPath(relativeWebPathXslt);
 
 			// On transforme le XML r�cuper� par la requ�te Xquery vers du Html avec Xsl
 			String html = null;
@@ -136,106 +136,4 @@ public class Hello extends HttpServlet {
 
 		return resultat;
 	}
-	
-
 }
-
-
-//package com;
-//
-//import java.io.File;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.io.StringWriter;
-//
-//import javax.servlet.ServletContext;
-//import javax.servlet.ServletException;
-//import javax.servlet.http.*;
-//import javax.xml.transform.Transformer;
-//import javax.xml.transform.TransformerException;
-//import javax.xml.transform.TransformerFactory;
-//import javax.xml.transform.stream.StreamResult;
-//import javax.xml.transform.stream.StreamSource;
-//
-//import net.sf.saxon.TransformerFactoryImpl;
-//
-//import org.basex.core.*;
-//import org.basex.core.cmd.*;
-//import org.basex.data.Result;
-//import org.basex.query.QueryException;
-//import org.basex.query.QueryProcessor;
-//import org.basex.query.iter.Iter;
-//import org.basex.query.value.item.Item;
-//
-//
-///**
-// * Servlet implementation class Hello
-// */
-//public class Hello extends HttpServlet {
-//	private static final long serialVersionUID = 1L;
-//       
-//    /**
-//     * @see HttpServlet#HttpServlet()
-//     */
-//    public Hello() {
-//        super();
-//        // TODO Auto-generated constructor stub
-//    }
-//
-//   
-//
-//    public void doGet(HttpServletRequest request,
-//                      HttpServletResponse response)
-//              throws ServletException, IOException
-//    {
-//
-//		ServletContext servletContext = request.getSession().getServletContext();
-//		String relativeWebPathXq = "/home/zalbiya/Documents/CoursM1Miage/workspaceEclipseLabs/FirstApp/src/main/resources/xml/requetes.xq";
-//		// Nouveau contexte Basex
-//		Context contexte = new Context();
-//		
-//		String requete = "import module namespace proj= 'xml' at '"+relativeWebPathXq +"'; proj:patrimoinesWithActivitiesFree()";
-//		String resultat = null;
-//		QueryProcessor procInfoHotel = new QueryProcessor(requete, contexte);
-//		try {
-//			resultat = procInfoHotel.execute().toString();
-//			System.out.println("Hello.doGet()");
-//		} catch (QueryException e) {
-//			System.out.println(e.getMessage());
-//		}
-//		String res = null;
-//		try {
-//			 res =xmlxsl(new File("/home/zalbiya/Documents/CoursM1Miage/workspaceEclipseLabs/FirstApp/src/main/resources/xslt/functionOffreResult.xml"),new File("/home/zalbiya/Documents/CoursM1Miage/workspaceEclipseLabs/FirstApp/src/main/resources/xslt/functionOffre.xsl"));
-//		} catch (TransformerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		PrintWriter out = response.getWriter();
-//		out.print(res);
-//	    // Fermer le processor
-//	    procInfoHotel.close();
-//	    
-//	    // Envoi à la vue
-//	    request.setAttribute("Patrimoines", res);
-//	    //this.getServletContext().getRequestDispatcher( "/patrimoines.jsp" ).forward( request, response );
-//	}
-//    
-//    
-//    public static String xmlxsl(File sFileXML, File sFileXSL) throws TransformerException{
-//		 
-//		 
-//		 // Charge le XSL
-//	      TransformerFactory tFactory = TransformerFactoryImpl.newInstance();
-//	      StreamSource ss = new StreamSource(sFileXSL);
-//	      Transformer transformer = tFactory.newTransformer(ss);
-//
-//	      StringWriter swOut = new StringWriter();
-//	      transformer.transform(new StreamSource(sFileXML),new StreamResult(swOut));
-//
-//	      return swOut.getBuffer().toString();
-//	}
-//	
-//  }

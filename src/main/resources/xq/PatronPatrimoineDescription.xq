@@ -17,8 +17,8 @@ else <h1>{data($path/lieuNom)}</h1>
 (: Affiche l'adresse complete (adresse, code postale, commune et pays :)
 declare function proj:adresse()
 {
-  for $path in doc("../xml/jep2014.xml")/programmeDataEdition/fichesInscription/ficheInscription[1]
-return <p>{data($path/lieuAdresse)}<br />{data($path/lieuCodePostal)}{data(" ")}{data($path/lieuCommune)}{data(" ")}{data($path/lieuPays)}</p>
+  for $path in doc("../xml/jep2014.xml")/programmeDataEdition/fichesInscription/ficheInscription
+return <p>{data($path/lieuAdresse)}{data(" ")}{data($path/lieuCodePostal)}{data(" ")}{data($path/lieuCommune)}{data(" ")}{data($path/lieuPays)}</p>
 };
 
 (:Region:)
@@ -81,6 +81,14 @@ declare function proj:contains($path as xs:string? , $substring as xs:string )  
    contains(upper-case($path), upper-case($substring))
 };
 
+declare function proj:libellesDistinct() 
+{
+  for $path in distinct-values(doc("../xml/jep2014.xml")/programmeDataEdition/fichesInscription/ficheInscription/offres/offre/themes/theme/libelle)
+  
+  return
+  <div>{$path}</div>
+};
+
 (:Reste à voir typeVisiteCommentee, conditions, theme/libelle, typeVisiteCircuit, lieuClasseMH, lieuInscritMH, lieuNumInsee :)
 
 (:Appel de toutes les fonctions:)
@@ -90,7 +98,9 @@ declare function proj:appel()
   proj:lieuNom_Site()
   proj:adresse()
   proj:offres()
-  proj:position()
+  proj:position() 
   </body>
 };
+
+
 

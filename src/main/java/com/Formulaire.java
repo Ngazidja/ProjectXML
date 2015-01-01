@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.nio.file.Path;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -30,9 +29,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- * Servlet implementation class Adresse
+ * Servlet implementation class Hello
  */
-public class Adresse extends HttpServlet {
+public class Formulaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String absoluteDiskPathXq;
 	private Context contexte;
@@ -42,7 +41,7 @@ public class Adresse extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Adresse() {
+	public Formulaire() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -52,20 +51,21 @@ public class Adresse extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Adresse.doGet()");
+		System.out.println("Formulaire.doGet()");
 		ServletContext servletContext = request.getSession().getServletContext();
 		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/PatronPatrimoineDescription.xq";
 		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
-		
+
 		String type = request.getParameter("type");
 
 		// Nouveau contexte Basex
 		contexte = new Context();
 
-		xml = "<adresse>\n";
-		xml += processQuery("adresse") + "\n";	
-		xml += "\n</adresse>";
-		
+		xml = "<form>\n";
+		//xml += processQuery("lieuNom_Site()") + "\n";
+		xml += processQuery("form('', '', '', 'paris', '')") + "\n";	
+		xml += "\n</form>";
+		System.out.println(xml);
 		// Demandes d'affichage en html
 		if(type == null || !type.equals("pdf")) {
 			String relativeWebPathXslt = "/home/zalbiya/git/ProjectXML/src/main/resources/xslt/formTest.xsl";
@@ -78,7 +78,7 @@ public class Adresse extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+			System.out.println(html);
 			PrintWriter out = response.getWriter();
 			out.print(html);
 
@@ -120,9 +120,9 @@ public class Adresse extends HttpServlet {
 
 		return htmlStreamResult.toString();
 	}
-	
+
 	private String processQuery(String queryName) {
-		String requete = "import module namespace proj = 'xml' at '"+relativeWebPathXq+"'; proj:" + queryName + "()";
+		String requete = "import module namespace proj = 'xml' at '"+relativeWebPathXq+"'; proj:" + queryName ;
 		String resultat = null;
 		QueryProcessor proc = new QueryProcessor(requete, contexte);
 		try {
@@ -136,6 +136,4 @@ public class Adresse extends HttpServlet {
 
 		return resultat;
 	}
-	
-
 }

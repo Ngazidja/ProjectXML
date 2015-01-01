@@ -5,10 +5,10 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-  	<servlet-name>Hello</servlet-name>
-  	<display-name>Hello</display-name>
+  	<servlet-name>Formulaire</servlet-name>
+  	<display-name>Formulaire</display-name>
   	<description></description>
-  	<servlet-class>com.Hello</servlet-class>
+  	<servlet-class>com.Formulaire</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>Adresse</servlet-name>
@@ -16,13 +16,23 @@
   	<description></description>
   	<servlet-class>com.Adresse</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Index</servlet-name>
+  	<display-name>Index</display-name>
+  	<description></description>
+  	<servlet-class>com.Index</servlet-class>
+  </servlet>
   <servlet-mapping>
-  	<servlet-name>Hello</servlet-name>
-  	<url-pattern>/Hello</url-pattern>
+  	<servlet-name>Formulaire</servlet-name>
+  	<url-pattern>/Formulaire</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>Adresse</servlet-name>
   	<url-pattern>/Adresse</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Index</servlet-name>
+  	<url-pattern>/Index</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
