@@ -101,7 +101,7 @@ public class Index extends HttpServlet {
 
 		System.out.println("Index.doPost()");
 		ServletContext servletContext = request.getSession().getServletContext();
-		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/barreRecherche.xq";
+		relativeWebPathXq = "src/main/resources/xq/barreRecherche.xq";
 		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
 
 		String type = request.getParameter("type");
@@ -115,7 +115,7 @@ public class Index extends HttpServlet {
 		System.out.println(xml);
 		// Demandes d'affichage en html
 		if(type == null || !type.equals("pdf")) {
-			String relativeWebPathXslt = "/home/zalbiya/git/ProjectXML/src/main/resources/xslt/formTest.xsl";
+			String relativeWebPathXslt = "src/main/resources/xslt/formTest.xsl";
 
 			// On transforme le XML r�cuper� par la requ�te Xquery vers du Html avec Xsl
 			String html = null;

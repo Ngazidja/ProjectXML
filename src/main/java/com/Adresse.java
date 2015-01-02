@@ -54,7 +54,7 @@ public class Adresse extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Adresse.doGet()");
 		ServletContext servletContext = request.getSession().getServletContext();
-		relativeWebPathXq = "/home/zalbiya/git/ProjectXML/src/main/resources/xq/PatronPatrimoineDescription.xq";
+		relativeWebPathXq = "src/main/resources/xq/PatronPatrimoineDescription.xq";
 		absoluteDiskPathXq = servletContext.getRealPath(relativeWebPathXq);
 		
 		String type = request.getParameter("type");
@@ -68,7 +68,7 @@ public class Adresse extends HttpServlet {
 		
 		// Demandes d'affichage en html
 		if(type == null || !type.equals("pdf")) {
-			String relativeWebPathXslt = "/home/zalbiya/git/ProjectXML/src/main/resources/xslt/formTest.xsl";
+			String relativeWebPathXslt = "src/main/resources/xslt/formTest.xsl";
 			String absoluteDiskPathXslt = servletContext.getRealPath(relativeWebPathXslt);
 
 			// On transforme le XML r�cuper� par la requ�te Xquery vers du Html avec Xsl
